@@ -40,12 +40,12 @@ Le projet a été réalisé en équipe dans le cadre du cours de NSI.
 
 ### Temps passé sur le projet
 
-Le projet a été développé sur plusieurs mois, en dehors des heures de cours. Les principales phases ont été :
+Le projet a été développé sur plusieurs mois. Les principales phases ont été :
 
 - Conception de la base de données et collecte des données : environ 2 semaines
 - Développement de l'interface carte : environ 1 mois
 - Développement du quiz : environ 1 mois
-- Tests, corrections et documentation : environ 3 semaine
+- Tests, corrections et documentation : environ 3 semaines
 
 ---
 
