@@ -99,7 +99,7 @@ def retour_menu():
 ensure_database()
 
 root = tk.Tk()
-root.title("Exploration Nature — Quiz")
+root.title("Nature Atlas — Quiz")
 root.configure(bg="#09471c")
 root.state('zoomed')
 root.update_idletasks()
@@ -168,7 +168,7 @@ def show_home():
 
     regles_txt = (
         "◆  10 questions tirées aléatoirement parmi 100 animaux.\n\n"
-        "◆  Pour chaque animal, devinez sa région d'origine parmi 10 choix.\n\n"
+        "◆  Pour chaque animal, devinez sa région d'origine parmi 4 choix.\n\n"
         "◆  Une seule tentative par question — le score est sur 10.\n\n"
         "◆  Consultez la carte interactive pour réviser avant de jouer !\n\n"
         "◆  Le quiz peut être rejoué autant de fois que voulu."
