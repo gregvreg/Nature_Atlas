@@ -251,7 +251,7 @@ def ouvrir_region(region_nom, root_win):
 ensure_database()
 
 root = tk.Tk()
-root.title("Exploration Nature — Carte du Monde")
+root.title("Nature Atlas — Carte du Monde")
 root.configure(bg="#09471c")
 
 root.state('zoomed')
@@ -276,7 +276,7 @@ hdr = tk.Frame(root, bg="#09471c", height=HEADER_H)
 hdr.pack(fill="x", side="top")
 hdr.pack_propagate(False)
 
-tk.Label(hdr, text="Exploration Nature",font=TF, fg="white", bg="#09471c").pack(pady=(12, 2))
+tk.Label(hdr, text="Nature Atlas",font=TF, fg="white", bg="#09471c").pack(pady=(12, 2))
 tk.Label(hdr, text="Cliquez sur une région pour découvrir ses animaux",font=SF, fg="#a8d8a8", bg="#09471c").pack()
 tk.Frame(hdr, bg="lightgreen", height=2).pack(fill="x", padx=60, pady=(5, 0))
 
