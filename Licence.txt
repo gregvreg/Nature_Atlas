@@ -1,0 +1,46 @@
+Licence MIT
+===========
+
+Copyright (c) 2025 — Projet Trophée NSI « Exploration Nature »
+
+Permission est accordée, gratuitement, à toute personne obtenant une copie
+de ce logiciel et des fichiers de documentation associés (le « Logiciel »),
+de traiter le Logiciel sans restriction, notamment sans limitation des droits
+d'utilisation, de copie, de modification, de fusion, de publication, de
+distribution, de sous-licence et/ou de vente de copies du Logiciel, et
+d'autoriser les personnes auxquelles le Logiciel est fourni à faire de même,
+sous réserve des conditions suivantes :
+
+La notice de copyright ci-dessus et la présente notice de permission doivent
+être incluses dans toutes les copies ou portions substantielles du Logiciel.
+
+LE LOGICIEL EST FOURNI « EN L'ÉTAT », SANS GARANTIE D'AUCUNE SORTE, EXPRESSE
+OU IMPLICITE, NOTAMMENT SANS GARANTIE DE QUALITÉ MARCHANDE, D'ADÉQUATION À UN
+USAGE PARTICULIER ET D'ABSENCE DE CONTREFAÇON. EN AUCUN CAS LES AUTEURS OU
+TITULAIRES DU DROIT D'AUTEUR NE SERONT RESPONSABLES DE TOUT DOMMAGE, RÉCLAMATION
+OU AUTRE RESPONSABILITÉ, QUE CE SOIT DANS LE CADRE D'UN CONTRAT, D'UN DÉLIT OU
+AUTRE, EN LIEN AVEC LE LOGICIEL, SON UTILISATION OU SES AUTRES EXPLOITATIONS.
+
+---
+
+Bibliothèques tierces utilisées
+---------------------------------
+
+Ce projet utilise les bibliothèques open source suivantes :
+
+1. Pillow (PIL Fork)
+   Licence : HPND (Historical Permission Notice and Disclaimer)
+   Site    : https://python-pillow.org/
+
+2. Python Standard Library — tkinter
+   Licence : Python Software Foundation License (PSF)
+   Site    : https://docs.python.org/3/library/tkinter.html
+
+3. Python Standard Library — sqlite3
+   Licence : Python Software Foundation License (PSF)
+   Site    : https://docs.python.org/3/library/sqlite3.html
+
+---
+
+Les données (descriptions des animaux, noms scientifiques) ont été rédigées
+spécifiquement pour ce projet à des fins éducatives et non commerciales.
