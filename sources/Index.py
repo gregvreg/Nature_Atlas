@@ -48,7 +48,7 @@ def play_carte():
 ensure_database()
 
 root = tk.Tk()
-root.title("Exploration Nature")
+root.title("Nature Atlas")
 root.configure(bg="#09471c")
 
 root.state('zoomed')
@@ -71,7 +71,7 @@ hdr = tk.Frame(root, bg="#09471c", height=HEADER_H)
 hdr.pack(fill="x", side="top")
 hdr.pack_propagate(False)
 
-tk.Label(hdr, text="Exploration Nature",
+tk.Label(hdr, text="Nature Atlas",
          font=TF, fg="white", bg="#09471c").pack(pady=(14, 2))
 tk.Label(hdr, text="Découvrez la richesse de notre planète",
          font=SF, fg="#a8d8a8", bg="#09471c").pack()
