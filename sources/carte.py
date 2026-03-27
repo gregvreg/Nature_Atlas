@@ -47,7 +47,7 @@ def resolve_animal_image_base(path):
 MAP_FILE = os.path.join(IMAGE_DIR, "carte_monde.jpg")
 LEG_W    = 220
 
-# ── Positions des régions en % du canvas (x%, y%) ──
+# ── Positions des régions en % du canvas ──
 # Calculées depuis coordonnées géographiques réelles
 REGION_POS_PCT = {
     "Afrique":                     (0.535, 0.610),
@@ -76,9 +76,8 @@ REGION_COLORS = {
 }
 
 
-# ──────────────────────────────────────────────────────────────────
-#  BASE DE DONNÉES
-# ──────────────────────────────────────────────────────────────────
+# ── BASE DE DONNEES ──
+
 def get_animaux_par_region(region_nom):
     conn = sqlite3.connect(DB_NAME)
     conn.row_factory = sqlite3.Row
@@ -111,9 +110,8 @@ def load_image(path, size):
     return ImageTk.PhotoImage(img)
 
 
-# ──────────────────────────────────────────────────────────────────
-#  FENÊTRE DÉTAIL ANIMAL
-# ──────────────────────────────────────────────────────────────────
+# ── FENETRE FICHE ANIMAL ──
+
 def ouvrir_detail_animal(animal, parent):
     win = tk.Toplevel(parent)
     win.title(animal["nom_commun"])
@@ -173,9 +171,8 @@ def ouvrir_detail_animal(animal, parent):
     tk.Button(win, text="✕  Fermer", command=win.destroy,bg="#34c759", fg="#0a1a0a", font=LF,relief="flat", cursor="hand2", padx=20, pady=8).pack(pady=14)
 
 
-# ──────────────────────────────────────────────────────────────────
-#  FENÊTRE LISTE ANIMAUX D'UNE RÉGION
-# ──────────────────────────────────────────────────────────────────
+# ── FENETRE ANIMAUX REGIONS ──
+
 def ouvrir_region(region_nom, root_win):
     animaux = get_animaux_par_region(region_nom)
     if not animaux:
@@ -249,16 +246,14 @@ def ouvrir_region(region_nom, root_win):
     win._img_refs = img_refs
 
 
-# ──────────────────────────────────────────────────────────────────
-#  FENÊTRE PRINCIPALE
-# ──────────────────────────────────────────────────────────────────
+# ── FENETRE PRINCIPALE ──
+
 ensure_database()
 
 root = tk.Tk()
 root.title("Exploration Nature — Carte du Monde")
 root.configure(bg="#09471c")
 
-# Plein écran
 root.state('zoomed')
 root.update_idletasks()
 SCR_W = root.winfo_screenwidth()
@@ -276,6 +271,7 @@ LTF = tkfont.Font(family="Courier New", size=10, weight="bold")
 LIF = tkfont.Font(family="Courier New", size=9)
 
 # ── EN-TÊTE ──
+
 hdr = tk.Frame(root, bg="#09471c", height=HEADER_H)
 hdr.pack(fill="x", side="top")
 hdr.pack_propagate(False)
@@ -284,7 +280,7 @@ tk.Label(hdr, text="Exploration Nature",font=TF, fg="white", bg="#09471c").pack(
 tk.Label(hdr, text="Cliquez sur une région pour découvrir ses animaux",font=SF, fg="#a8d8a8", bg="#09471c").pack()
 tk.Frame(hdr, bg="lightgreen", height=2).pack(fill="x", padx=60, pady=(5, 0))
 
-# ── CORPS : légende gauche + carte droite ──
+# ── CORPS ──
 body = tk.Frame(root, bg="#09471c")
 body.pack(fill="both", expand=True)
 
@@ -325,10 +321,12 @@ for region, col in REGION_COLORS.items():
         w.bind("<Leave>",    on_leave_leg)
 
 # ── CANVAS CARTE ──
+
 canvas = tk.Canvas(body, width=CANVAS_W, height=CANVAS_H,bg="#0b1f2e", highlightthickness=0)
 canvas.pack(side="left", fill="both", expand=True)
 
-# ── Chargement de la carte ──
+# ── CHARGEMENT CARTE ──
+
 if os.path.exists(MAP_FILE):
     map_img   = Image.open(MAP_FILE).convert("RGB")
     map_img   = map_img.resize((CANVAS_W, CANVAS_H), Image.LANCZOS)
@@ -338,46 +336,27 @@ if os.path.exists(MAP_FILE):
 else:
     canvas.create_text(CANVAS_W // 2, CANVAS_H // 2,text=f"Fichier '{MAP_FILE}' introuvable.\nPlacez-le dans le dossier du projet.",fill="#e84040", font=("Courier New", 14, "bold"), justify="center")
 
-# ── MODE DEBUG ──
-# Passer DEBUG_MODE = True pour afficher les coordonnées % au clic
-# et calibrer facilement les positions des boutons
-DEBUG_MODE = False
-
-if DEBUG_MODE:
-    debug_lbl = tk.Label(root, text="Cliquez sur la carte…",bg="#0a1a0a", fg="#34c759", font=("Courier New", 9))
-    debug_lbl.place(x=LEG_W + 8, y=HEADER_H + 6)
-    def on_debug_click(e):
-        px = round(e.x / canvas.winfo_width(),  3)
-        py = round(e.y / canvas.winfo_height(), 3)
-        debug_lbl.config(text=f"x={px}  y={py}")
-        print(f"  Clic → ({px}, {py})")
-    canvas.bind("<Button-1>", on_debug_click)
-
 # ── BOUTONS RÉGIONS ──
-R_OUT = 22   # rayon du halo
-R_IN  = 14   # rayon du cercle plein
+R_OUT = 22  
+R_IN  = 14   
 
 for region, (px, py) in REGION_POS_PCT.items():
     cx = int(px * CANVAS_W)
     cy = int(py * CANVAS_H)
     col = REGION_COLORS[region]
 
-    # Halo coloré (cercle extérieur vide)
     canvas.create_oval(cx - R_OUT, cy - R_OUT, cx + R_OUT, cy + R_OUT,
                        fill="", outline=col, width=2)
 
-    # Cercle plein coloré
     canvas.create_oval(cx - R_IN, cy - R_IN, cx + R_IN, cy + R_IN,
                        fill=col, outline="white", width=1)
 
-    # Étiquette avec micro-ombre (noir décalé + blanc)
     short = region.replace("Caraïbes & Amérique Centrale", "Caraïbes &\nAmér. Centrale")
     canvas.create_text(cx + 1, cy + R_OUT + 12, text=short,
                        fill="black", font=("Courier New", 7, "bold"), justify="center")
     canvas.create_text(cx,     cy + R_OUT + 11, text=short,
                        fill="white", font=("Courier New", 7, "bold"), justify="center")
 
-    # Bouton tkinter cliquable posé par-dessus
     btn = tk.Button(
         canvas, text="", bg=col,
         activebackground="white", relief="flat",
@@ -386,7 +365,6 @@ for region, (px, py) in REGION_POS_PCT.items():
     )
     canvas.create_window(cx, cy, window=btn, width=28, height=28)
 
-    # Tooltip au survol
     def make_tt(r, c, bx, by):
         tip = [None]
         def show(e, region=r, color=c, x=bx, y=by):
