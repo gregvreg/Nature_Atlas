@@ -56,7 +56,7 @@ root.update_idletasks()
 SCR_W = root.winfo_screenwidth()
 SCR_H = root.winfo_screenheight()
 
-# Polices (même style que carte.py)
+# Polices
 TF  = tkfont.Font(family="Courier New", size=28, weight="bold")
 SF  = tkfont.Font(family="Courier New", size=12, slant="italic")
 BF  = tkfont.Font(family="Courier New", size=12, weight="bold")
@@ -81,7 +81,7 @@ tk.Frame(hdr, bg="lightgreen", height=2).pack(fill="x", padx=60, pady=(6, 0))
 body = tk.Frame(root, bg="#0a1a0a")
 body.pack(fill="both", expand=True)
 
-# ── PANNEAU GAUCHE - navigation ──
+# ── PANNEAU GAUCHE ──
 LEFT_W = 380
 left = tk.Frame(body, bg="#0a1a0a", width=LEFT_W)
 left.pack(side="left", fill="y")
@@ -89,7 +89,6 @@ left.pack_propagate(False)
 
 tk.Frame(left, bg="#0a1a0a").pack(expand=True)
 
-# Titre section navigation
 tk.Label(left, text="NAVIGATION",
          font=tkfont.Font(family="Courier New", size=10, weight="bold"),
          fg="#34c759", bg="#0a1a0a").pack(pady=(0, 6), padx=30, anchor="w")
@@ -153,14 +152,13 @@ for w in (quiz_frame, btn_quiz, desc_quiz):
 
 tk.Frame(left, bg="#0a1a0a").pack(expand=True)
 
-# Séparateur vertical
 tk.Frame(body, bg="#34c759", width=2).pack(side="left", fill="y", pady=20)
 
-# ── PANNEAU DROIT - visuels ──
+# ── PANNEAU DROIT ──
 right = tk.Frame(body, bg="#0a1a0a")
 right.pack(side="left", fill="both", expand=True)
 
-# Grille 2x2 d'images illustratives
+# Grille d'images
 grid = tk.Frame(right, bg="#0a1a0a")
 grid.pack(fill="both", expand=True, padx=20, pady=20)
 
@@ -197,14 +195,13 @@ for idx, (row, col) in enumerate(positions):
     cell = tk.Frame(grid, bg=bg_c)
     cell.grid(row=row, column=col, padx=8, pady=8, sticky="nsew")
 
-    # Essayer de charger une image si disponible
+    # Chargement de l'image
     loaded = False
     if idx < len(IMAGE_FILES):
         fp = IMAGE_FILES[idx]
         if os.path.exists(fp):
             try:
                 img = Image.open(fp).convert("RGB")
-                # taille calculée dynamiquement après
                 img_photo_raw = img
                 loaded = True
             except Exception:
@@ -224,7 +221,6 @@ for idx, (row, col) in enumerate(positions):
                  font=tkfont.Font(family="Courier New", size=13, weight="bold"),
                  fg=fg_c, bg=bg_c, justify="center").pack(expand=True)
 
-    # Overlay tag en bas
     tag = tk.Label(cell, text=f"  {FALLBACK_DATA[idx][2].split(chr(10))[2].strip() if chr(10) in FALLBACK_DATA[idx][2] else ''}  ",
                    font=LF, fg="#0a1a0a", bg=fg_c)
     tag.place(relx=0.0, rely=1.0, anchor="sw")
