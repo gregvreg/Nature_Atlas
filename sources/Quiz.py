@@ -59,7 +59,7 @@ REGION_COLORS = {
 }
 
 REGIONS = list(REGION_COLORS.keys())
-QUIZ_SIZE = 10  # nombre de questions
+QUIZ_SIZE = 10  
 
 # ── BASE DE DONNÉES ──
 def get_all_animaux():
@@ -94,9 +94,8 @@ def retour_menu():
     launch_script("Index.py")
     sys.exit()
 
-# ──────────────────────────────────────────────────────────────────
-#  FENÊTRE PRINCIPALE
-# ──────────────────────────────────────────────────────────────────
+# ── FENETRE PRINCIPALE ──
+
 ensure_database()
 
 root = tk.Tk()
@@ -143,9 +142,8 @@ tk.Button(btn_frame, text="<<< Retourner au menu",
 main_frame = tk.Frame(root, bg="#0a1a0a")
 main_frame.pack(fill="both", expand=True)
 
-# ──────────────────────────────────────────────────────────────────
-#  ÉTAT DU QUIZ
-# ──────────────────────────────────────────────────────────────────
+# ── ETAT DU QUIZ ──
+
 quiz_state = {
     "animaux": [],
     "current_index": 0,
@@ -154,9 +152,8 @@ quiz_state = {
     "selected_btn": None,
 }
 
-# ──────────────────────────────────────────────────────────────────
-#  ÉCRAN D'ACCUEIL
-# ──────────────────────────────────────────────────────────────────
+# ── ECRAN D'ACCEUIL ──
+
 def show_home():
     for w in main_frame.winfo_children():
         w.destroy()
@@ -196,9 +193,8 @@ def show_home():
     launch_btn.bind("<Enter>", on_e)
     launch_btn.bind("<Leave>", on_l)
 
-# ──────────────────────────────────────────────────────────────────
-#  DÉMARRER LE QUIZ
-# ──────────────────────────────────────────────────────────────────
+# ── DEMARRER LE QUIZ ──
+
 def start_quiz():
     all_animaux = get_all_animaux()
     selected = random.sample(list(all_animaux), QUIZ_SIZE)
@@ -209,9 +205,8 @@ def start_quiz():
     quiz_state["selected_btn"] = None
     show_question()
 
-# ──────────────────────────────────────────────────────────────────
-#  AFFICHER UNE QUESTION
-# ──────────────────────────────────────────────────────────────────
+# ── AFFICHER QUESTIONS ──
+
 def show_question():
     for w in main_frame.winfo_children():
         w.destroy()
@@ -220,7 +215,6 @@ def show_question():
     animal = quiz_state["animaux"][idx]
     correct_region = animal["nom_region"]
 
-    # Générer 3 mauvaises régions
     wrong_regions = random.sample([r for r in REGIONS if r != correct_region], 3)
     options = wrong_regions + [correct_region]
     random.shuffle(options)
@@ -228,20 +222,20 @@ def show_question():
     quiz_state["answered"] = False
     quiz_state["correct_region"] = correct_region
 
-    # ── LAYOUT ──
     content = tk.Frame(main_frame, bg="#0a1a0a")
     content.pack(fill="both", expand=True, padx=40, pady=20)
 
-    # Colonne gauche : image + nom
+    # Colonne gauche 
     col_left = tk.Frame(content, bg="#0a1a0a")
     col_left.pack(side="left", fill="both", expand=True)
 
-    # Colonne droite : infos + boutons réponses
+    # Colonne droite 
     col_right = tk.Frame(content, bg="#0a1a0a", width=460)
     col_right.pack(side="right", fill="y", padx=(30, 0))
     col_right.pack_propagate(False)
 
     # ── Barre de progression ──
+    
     prog_frame = tk.Frame(col_left, bg="#0a1a0a")
     prog_frame.pack(fill="x", pady=(0, 12))
 
@@ -249,13 +243,11 @@ def show_question():
              text=f"Question {idx + 1} / {QUIZ_SIZE}    ●  Score : {quiz_state['score']} / {idx}",
              font=LF, fg="#7aaa7a", bg="#0a1a0a").pack(side="left")
 
-    # Barre de progression visuelle
     bar_bg = tk.Frame(prog_frame, bg="#1a3a1a", height=8, width=300)
     bar_bg.pack(side="right", pady=4)
     fill_w = int(300 * idx / QUIZ_SIZE)
     tk.Frame(bar_bg, bg="#34c759", height=8, width=fill_w).place(x=0, y=0)
 
-    # ── Image de l'animal ──
     img_frame = tk.Frame(col_left, bg="#1a3a1a")
     img_frame.pack(pady=(0, 16))
 
@@ -307,12 +299,10 @@ def show_question():
             result_label.configure(
                 text=f"✗  Mauvaise réponse…\nC'était : {correct_region}",
                 fg="#e84040", bg="#0a1a0a")
-            # Mettre en vert le bon bouton
             for b, r in btn_refs:
                 if r == correct_region:
                     b.configure(bg="#34c759", fg="#0a1a0a")
 
-        # Désactiver tous les boutons
         for b, r in btn_refs:
             b.configure(state="disabled")
 
@@ -355,9 +345,8 @@ def show_question():
         r_btn.bind("<Leave>", on_l)
         btn_refs.append((r_btn, region))
 
-# ──────────────────────────────────────────────────────────────────
-#  ÉCRAN DE RÉSULTATS
-# ──────────────────────────────────────────────────────────────────
+ # ── ECRAN DES RESULTATS ──
+
 def show_results():
     for w in main_frame.winfo_children():
         w.destroy()
@@ -429,7 +418,7 @@ def show_results():
         btn.bind("<Enter>", lambda e, b=btn, h=hov: b.configure(bg=h))
         btn.bind("<Leave>", lambda e, b=btn, o=orig: b.configure(bg=o))
 
-# ── Lancer l'écran d'accueil ──
+# ── RETOUR ECRAN D'ACCEUIL ──
 show_home()
 
 root.mainloop()
