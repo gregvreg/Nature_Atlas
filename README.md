@@ -142,5 +142,4 @@ L'assistant Claude (Anthropic) a été utilisé comme outil durant le projet, au
 
 - Aide à la rédaction des descriptions des 100 animaux.
 - Vérification de la cohérence des données scientifiques (noms latins, habitats, régimes alimentaires).
-- Aide à la rédaction de la documentation technique.
 
